@@ -18,4 +18,18 @@ public class Bibliothek {
         }
         return bucherDesAutors;
     }
+
+    public double durchschnittlicheSeitenanzhal(List<String> titelListe){
+        if (titelListe.isEmpty())
+            return 0;
+        int summe = 0;
+        for (String titel : titelListe){
+            for (Buch buch : bucher){
+                if (Objects.equals(buch.getTitel(), titel)){
+                    summe += buch.getAnzahlSeiten();
+                }
+            }
+        }
+        return (double) summe / titelListe.size();
+    }
 }

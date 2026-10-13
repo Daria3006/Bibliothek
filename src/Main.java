@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -25,26 +26,45 @@ public class Main {
             System.out.println("6. Zwei Bucher innerhalb eines Budgets");
             System.out.println("7. Programm beenden");
 
-            System.out.print("Wahle eine Option:");
+            System.out.print("Wahle eine Option : ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
-            if (option < 1 || option > 7){
+            if (option < 1 || option > 7) {
                 continue;
             }
 
-            switch(option){
+            switch (option) {
                 case 1:
                     System.out.print("Autor : ");
                     String autor = scanner.nextLine();
+                    System.out.println();
+
                     List<String> bucherDesAuthors = bibliothek.bucherEinesAutors(autor);
-                    for (String titel : bucherDesAuthors){
+                    for (String titel : bucherDesAuthors) {
                         System.out.println(titel);
                     }
                     break;
+                case 2:
+                    System.out.println("Fuge Bucher ein (beende mit `.`)");
+                    List<String> titelListe = new ArrayList<>();
+                    while (true){
+                        String titel = scanner.nextLine();
+                        if (!Objects.equals(titel, ".")){
+                            titelListe.add(titel);
+                        }
+                        else{
+                            break;
+                        }
+                    }
+
+                    System.out.println();
+                    double durchschnitt = bibliothek.durchschnittlicheSeitenanzhal(titelListe);
+                    System.out.println(String.format("%.2f", durchschnitt));
                 default:
                     break;
             }
+            System.out.println();
         }
     }
 }
