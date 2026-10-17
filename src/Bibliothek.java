@@ -68,4 +68,34 @@ public class Bibliothek {
         }
         return titelListe;
     }
+
+    public String zweiBucherInnerhalbBudget(List<String> titelListe, int budget){
+        int max_preis = 0;
+        List<Buch> zweiBucher = new ArrayList<>();
+        for (Buch buch1 : bucher){
+            if (titelListe.contains(buch1.getTitel())){
+                for (Buch buch2 : bucher){
+                    if (buch1 != buch2 && titelListe.contains(buch2.getTitel())){
+                        int summe = buch1.getPreis() + buch2.getPreis();
+                        if (summe <= budget){
+                            if (summe > max_preis){
+                                max_preis = summe;
+                                zweiBucher.clear();
+                                zweiBucher.add(buch1);
+                                zweiBucher.add(buch2);
+                            }
+                            else if (summe == max_preis){
+                                if (zweiBucher.get(0).getAnzahlSeiten() + zweiBucher.get(1).getAnzahlSeiten() < buch1.getAnzahlSeiten() + buch2.getAnzahlSeiten()){
+                                    zweiBucher.clear();
+                                    zweiBucher.add(buch1);
+                                    zweiBucher.add(buch2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return zweiBucher.get(0).getTitel() + " + " + zweiBucher.get(1).getTitel() + "\n" + "Gesamtpreis: " + max_preis + " Euro";
+    }
 }

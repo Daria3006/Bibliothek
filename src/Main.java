@@ -105,6 +105,22 @@ public class Main {
                     }
                     break;
                 }
+                case 6: {
+                    System.out.println("Fuge Bucher ein (beende mit `.`)");
+                    List<String> titelListe = new ArrayList<>();
+                    while (true) {
+                        String titel = scanner.nextLine();
+                        if (!Objects.equals(titel, ".")) {
+                            titelListe.add(titel);
+                        } else {
+                            break;
+                        }
+                    }
+                    System.out.print("Budget: ");
+                    int budget = Integer.parseInt(scanner.nextLine());
+                    String antwort = bibliothek.zweiBucherInnerhalbBudget(titelListe, budget);
+                    System.out.println(antwort);
+                }
                 case 7: {
                     running = false;
                     break;
