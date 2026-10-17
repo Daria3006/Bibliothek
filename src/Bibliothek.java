@@ -42,4 +42,20 @@ public class Bibliothek {
         }
         return titelListe;
     }
+
+    public String teuersteBuch(List<String> titelListe){
+        if (titelListe.isEmpty())
+            return "0";
+        String max_titel = "";
+        int max_preis = 0;
+        for (String titel : titelListe){
+            for (Buch buch : bucher){
+                if (Objects.equals(buch.getTitel(), titel) && buch.getPreis() > max_preis){
+                    max_titel = buch.getTitel();
+                    max_preis = buch.getPreis();
+                }
+            }
+        }
+        return max_titel + " (" + max_preis + " Euro)";
+    }
 }

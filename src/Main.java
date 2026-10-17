@@ -76,7 +76,23 @@ public class Main {
                     }
                     break;
                 }
+                case 4: {
+                    System.out.println("Fuge Bucher ein (beende mit `.`)");
+                    List<String> titelListe = new ArrayList<>();
+                    while (true) {
+                        String titel = scanner.nextLine();
+                        if (!Objects.equals(titel, ".")) {
+                            titelListe.add(titel);
+                        } else {
+                            break;
+                        }
+                    }
 
+                    System.out.println();
+                    String antwort = bibliothek.teuersteBuch(titelListe);
+                    System.out.println(antwort);
+                    break;
+                }
                 default: {
                     running = false;
                     break;
