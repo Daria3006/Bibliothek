@@ -93,8 +93,23 @@ public class Main {
                     System.out.println(antwort);
                     break;
                 }
-                default: {
+
+                case 5: {
+                    System.out.print("Mindestanzahl: ");
+                    int seitenAnzahl = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println();
+                    List<String> titelListe = bibliothek.bucherMitMindestSeitenanzahl(seitenAnzahl);
+                    for (String titel : titelListe){
+                        System.out.println(titel);
+                    }
+                    break;
+                }
+                case 7: {
                     running = false;
+                    break;
+                }
+                default: {
                     break;
                 }
             }
