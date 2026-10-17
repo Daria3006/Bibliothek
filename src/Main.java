@@ -17,7 +17,9 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        while(true) {
+        boolean running = true;
+
+        while(running) {
             System.out.println("1. Bucher eines Authors");
             System.out.println("2. Durchschnittliche Seitenanzahl mehrerer Bucher");
             System.out.println("3. Bucher innerhalb eines Preislimits");
@@ -35,7 +37,7 @@ public class Main {
             }
 
             switch (option) {
-                case 1:
+                case 1: {
                     System.out.print("Autor : ");
                     String autor = scanner.nextLine();
                     System.out.println();
@@ -45,15 +47,15 @@ public class Main {
                         System.out.println(titel);
                     }
                     break;
-                case 2:
+                }
+                case 2: {
                     System.out.println("Fuge Bucher ein (beende mit `.`)");
                     List<String> titelListe = new ArrayList<>();
-                    while (true){
+                    while (true) {
                         String titel = scanner.nextLine();
-                        if (!Objects.equals(titel, ".")){
+                        if (!Objects.equals(titel, ".")) {
                             titelListe.add(titel);
-                        }
-                        else{
+                        } else {
                             break;
                         }
                     }
@@ -61,8 +63,24 @@ public class Main {
                     System.out.println();
                     double durchschnitt = bibliothek.durchschnittlicheSeitenanzhal(titelListe);
                     System.out.println(String.format("%.2f", durchschnitt));
-                default:
                     break;
+                }
+                case 3: {
+                    System.out.print("Maximaler Preis: ");
+                    int preis = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println();
+                    List<String> titelListe = bibliothek.bucherInnerhalbPreislimit(preis);
+                    for (String titel : titelListe){
+                        System.out.println(titel);
+                    }
+                    break;
+                }
+
+                default: {
+                    running = false;
+                    break;
+                }
             }
             System.out.println();
         }

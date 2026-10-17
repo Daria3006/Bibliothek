@@ -32,4 +32,14 @@ public class Bibliothek {
         }
         return (double) summe / titelListe.size();
     }
+
+    public List<String> bucherInnerhalbPreislimit(int preis){
+        List<String> titelListe = new ArrayList<>();
+        for (Buch buch : bucher){
+            if (buch.getPreis() <= preis){
+                titelListe.add(buch.getTitel());
+            }
+        }
+        return titelListe;
+    }
 }
