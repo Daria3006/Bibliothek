@@ -49,16 +49,7 @@ public class Main {
                     break;
                 }
                 case 2: {
-                    System.out.println("Fuge Bucher ein (beende mit `.`)");
-                    List<String> titelListe = new ArrayList<>();
-                    while (true) {
-                        String titel = scanner.nextLine();
-                        if (!Objects.equals(titel, ".")) {
-                            titelListe.add(titel);
-                        } else {
-                            break;
-                        }
-                    }
+                    List<String> titelListe = listeLesen();
 
                     System.out.println();
                     double durchschnitt = bibliothek.durchschnittlicheSeitenanzhal(titelListe);
@@ -66,27 +57,20 @@ public class Main {
                     break;
                 }
                 case 3: {
+                    List<String> titelListe = listeLesen();
+
                     System.out.print("Maximaler Preis: ");
                     int preis = Integer.parseInt(scanner.nextLine());
 
                     System.out.println();
-                    List<String> titelListe = bibliothek.bucherInnerhalbPreislimit(preis);
+                    titelListe = bibliothek.bucherInnerhalbPreislimit(titelListe, preis);
                     for (String titel : titelListe){
                         System.out.println(titel);
                     }
                     break;
                 }
                 case 4: {
-                    System.out.println("Fuge Bucher ein (beende mit `.`)");
-                    List<String> titelListe = new ArrayList<>();
-                    while (true) {
-                        String titel = scanner.nextLine();
-                        if (!Objects.equals(titel, ".")) {
-                            titelListe.add(titel);
-                        } else {
-                            break;
-                        }
-                    }
+                    List<String> titelListe = listeLesen();
 
                     System.out.println();
                     String antwort = bibliothek.teuersteBuch(titelListe);
@@ -106,18 +90,11 @@ public class Main {
                     break;
                 }
                 case 6: {
-                    System.out.println("Fuge Bucher ein (beende mit `.`)");
-                    List<String> titelListe = new ArrayList<>();
-                    while (true) {
-                        String titel = scanner.nextLine();
-                        if (!Objects.equals(titel, ".")) {
-                            titelListe.add(titel);
-                        } else {
-                            break;
-                        }
-                    }
+                    List<String> titelListe = listeLesen();
+
                     System.out.print("Budget: ");
                     int budget = Integer.parseInt(scanner.nextLine());
+
                     String antwort = bibliothek.zweiBucherInnerhalbBudget(titelListe, budget);
                     System.out.println(antwort);
                 }
@@ -131,5 +108,20 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    public static List<String> listeLesen(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Fuge Bucher ein (beende mit `.`)");
+        List<String> titelListe = new ArrayList<>();
+        while (true) {
+            String titel = scanner.nextLine();
+            if (!Objects.equals(titel, ".")) {
+                titelListe.add(titel);
+            } else {
+                break;
+            }
+        }
+        return titelListe;
     }
 }
