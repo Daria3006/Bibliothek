@@ -30,16 +30,40 @@ public class Main {
 
             System.out.print("Wahle eine Option : ");
 
-            int option = scanner.nextInt();
+            int option;
+            if (scanner.hasNextInt()) {
+                option = scanner.nextInt();
+            }
+            else{
+                System.out.println();
+                System.out.println("Invalide Option!");
+                System.out.println();
+                scanner.next();
+                continue;
+            }
+
             scanner.nextLine();
             if (option < 1 || option > 7) {
+                System.out.println();
+                System.out.println("Invalide Option!");
+                System.out.println();
                 continue;
             }
 
             switch (option) {
                 case 1: {
-                    System.out.print("Autor : ");
-                    String autor = scanner.nextLine();
+                    List<String> autoren = bibliothek.alleAutoren();
+                    String autor;
+                    while (true) {
+                        System.out.print("Autor : ");
+                        autor = scanner.nextLine();
+                        if (autoren.contains(autor))
+                            break;
+                        else{
+                            System.out.println("Invalider Name!");
+                        }
+                    }
+
                     System.out.println();
 
                     List<String> bucherDesAuthors = bibliothek.bucherEinesAutors(autor);
@@ -49,7 +73,7 @@ public class Main {
                     break;
                 }
                 case 2: {
-                    List<String> titelListe = listeLesen();
+                    List<String> titelListe = listeLesen(bibliothek);
 
                     System.out.println();
                     double durchschnitt = bibliothek.durchschnittlicheSeitenanzhal(titelListe);
@@ -57,10 +81,21 @@ public class Main {
                     break;
                 }
                 case 3: {
-                    List<String> titelListe = listeLesen();
+                    List<String> titelListe = listeLesen(bibliothek);
 
-                    System.out.print("Maximaler Preis: ");
-                    int preis = Integer.parseInt(scanner.nextLine());
+                    int preis;
+                    while (true) {
+                        System.out.print("Maximaler Preis: ");
+                        if (scanner.hasNextInt()){
+                            preis = scanner.nextInt();
+                            break;
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("Invalider Input!");
+                            System.out.println();
+                        }
+                    }
 
                     System.out.println();
                     titelListe = bibliothek.bucherInnerhalbPreislimit(titelListe, preis);
@@ -70,7 +105,7 @@ public class Main {
                     break;
                 }
                 case 4: {
-                    List<String> titelListe = listeLesen();
+                    List<String> titelListe = listeLesen(bibliothek);
 
                     System.out.println();
                     String antwort = bibliothek.teuersteBuch(titelListe);
@@ -79,8 +114,19 @@ public class Main {
                 }
 
                 case 5: {
-                    System.out.print("Mindestanzahl: ");
-                    int seitenAnzahl = Integer.parseInt(scanner.nextLine());
+                    int seitenAnzahl;
+                    while (true) {
+                        System.out.print("Mindest Seitenanzahl: ");
+                        if (scanner.hasNextInt()){
+                            seitenAnzahl = scanner.nextInt();
+                            break;
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("Invalider Input!");
+                            System.out.println();
+                        }
+                    }
 
                     System.out.println();
                     List<String> titelListe = bibliothek.bucherMitMindestSeitenanzahl(seitenAnzahl);
@@ -90,10 +136,21 @@ public class Main {
                     break;
                 }
                 case 6: {
-                    List<String> titelListe = listeLesen();
+                    List<String> titelListe = listeLesen(bibliothek);
 
-                    System.out.print("Budget: ");
-                    int budget = Integer.parseInt(scanner.nextLine());
+                    int budget;
+                    while (true) {
+                        System.out.print("Budget: ");
+                        if (scanner.hasNextInt()){
+                            budget = scanner.nextInt();
+                            break;
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("Invalider Input!");
+                            System.out.println();
+                        }
+                    }
 
                     String antwort = bibliothek.zweiBucherInnerhalbBudget(titelListe, budget);
                     System.out.println(antwort);
@@ -110,17 +167,23 @@ public class Main {
         }
     }
 
-    public static List<String> listeLesen(){
+    public static List<String> listeLesen(Bibliothek bibliothek){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Fuge Bucher ein (beende mit `.`)");
         List<String> titelListe = new ArrayList<>();
+        List<String> existierendeTitel = bibliothek.alleTitel();
         while (true) {
             String titel = scanner.nextLine();
+            if (!existierendeTitel.contains(titel) && !Objects.equals(titel, ".")) {
+                System.out.println("Invalider Titel!");
+                continue;
+            }
             if (!Objects.equals(titel, ".")) {
                 titelListe.add(titel);
             } else {
                 break;
             }
+
         }
         return titelListe;
     }

@@ -9,6 +9,23 @@ public class Bibliothek {
         this.bucher = bucher;
     }
 
+
+    public List<String> alleAutoren(){
+        List<String> autoren = new ArrayList<>();
+        for (Buch buch : bucher){
+            autoren.add(buch.getAutor());
+        }
+        return autoren;
+    }
+
+    public List<String> alleTitel(){
+        List<String> titel = new ArrayList<>();
+        for (Buch buch : bucher){
+            titel.add(buch.getTitel());
+        }
+        return titel;
+    }
+
     public List<String> bucherEinesAutors(String autor){
         List<String> bucherDesAutors = new ArrayList<>();
         for (Buch buch : bucher){
