@@ -154,6 +154,7 @@ public class Main {
 
                     String antwort = bibliothek.zweiBucherInnerhalbBudget(titelListe, budget);
                     System.out.println(antwort);
+                    break;
                 }
                 case 7: {
                     running = false;

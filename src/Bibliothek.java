@@ -86,6 +86,8 @@ public class Bibliothek {
     }
 
     public String zweiBucherInnerhalbBudget(List<String> titelListe, int budget){
+        if (titelListe.toArray().length < 2)
+            return "Nicht genug Bucher vorhanden!";
         int max_preis = 0;
         List<Buch> zweiBucher = new ArrayList<>();
         for (Buch buch1 : bucher){
@@ -111,6 +113,9 @@ public class Bibliothek {
                     }
                 }
             }
+        }
+        if (zweiBucher.isEmpty()){
+            return "Man kann keine zwei Bucher mit diesem Gesamtpreis kaufen!";
         }
         return zweiBucher.get(0).getTitel() + " + " + zweiBucher.get(1).getTitel() + "\n" + "Gesamtpreis: " + max_preis + " Euro";
     }
